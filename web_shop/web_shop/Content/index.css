@@ -1,0 +1,29 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+content {
+    display: flex;
+    justify-content: center;
+    border: 2px solid;
+}
+
+.phone_item {
+    display: flex;
+    border: 0.5px solid;
+}
+
+.phone_item > image {
+    min-width: 50px;
+    min-height: 80px;
+}
+
+.phone_info {
+    
+}

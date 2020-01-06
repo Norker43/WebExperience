@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/Site.css" />
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Дешевые лопаты отечественного производства</h1>
+
+    <content>
+        @{ 
+            foreach (var phone in ViewBag.Phones)
+            {
+                <div class="phone_item">
+                    <img src="~/Content/" />
+                    <div class="phone_info">
+                        <h4>@phone.Name</h4>
+                        <div>@phone.Price</div>
+                        <div>@phone.Producer</div>
+                        <a href="/Home/Buy/@phone.Id">Купить</a>
+                    </div>
+                </div>
+            }
+        }
+    </content>
+</body>
+</html>
