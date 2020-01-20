@@ -1,0 +1,16 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+
+#content {
+    background-color: red;
+}
+
+.title {
+    color: white;
+}
+
+.basket {
+    margin-right: 0.5rem;
+}

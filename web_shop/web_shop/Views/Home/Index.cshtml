@@ -5,27 +5,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="~/Content/Site.css" />
     <meta charset="utf-8" />
+    <meta name="viewport" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-grid.css" rel="stylesheet" />
+    <link href="~/Content/index.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/custom/cross_domen.js"></script>
+    <script src="~/Scripts/custom/search.js"></script>
+    <script src="~/Scripts/custom/cookies.js"></script>
+    <script src="~/Scripts/custom/add_in_session.js"></script>
+    <script src="~/Scripts/custom/to_basket.js"></script>
 </head>
 <body>
-    <h1>Дешевые лопаты отечественного производства</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+        <div class="d-flex align-items-center">
+            <a href="/Home/Index" class="navbar-brand">
+                <h1>Rushop</h1>
+            </a>
+            <select id="city" class="custom-select" onchange="SetCookies() ">
+                @{
+                    foreach (var city in ViewBag.Cities)
+                    {
+                        <option>@city.CityName</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="d-flex">
+            <a id="basket" href="http://localhost:54696" class="basket">
+                <img src="~/images/basket.png" />
+            </a>
+            <form class="form-inline">
+                <input id="search" class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search" onkeyup="Search()" />
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+            </form>
+        </div>
+    </nav>
 
     <content>
-        @{ 
-            foreach (var phone in ViewBag.Phones)
-            {
-                <div class="phone_item">
-                    <img src="~/Content/" />
-                    <div class="phone_info">
-                        <h4>@phone.Name</h4>
-                        <div>@phone.Price</div>
-                        <div>@phone.Producer</div>
-                        <a href="/Home/Buy/@phone.Id">Купить</a>
-                    </div>
+        <!-- Сортировка -->
+        <div class="sort_container">
+            <div class="card-title">Сортировать:</div>
+            <div class="sort_components justify-content-around align-items-center">
+                <div class="cost_input input-group-sm">
+                    <input min="0" max="1000000" value="0" style="max-width: 100px;" />
+                    <input type="range" min="0" max="1000000" step="10000" value="(min + max)/2" />
+                    <input min="0" max="1000000" value="1000000" style="max-width: 100px;" />
                 </div>
+                <select class="custom-select">
+                    @{
+                        foreach (var producer in ViewBag.Producers)
+                        {
+                            <option>@producer.ProducerName</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <!-- Карточки товаров -->
+        <div class="d-flex flex-wrap justify-content-around">
+            @{
+                foreach (var phone in ViewBag.Phones)
+                {
+                    <div class="card mb-3" style="width: 540px;">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-md-4">
+                                <img src="~/images/phone.png" class="card-img-top" style="max-width: 150px;" />
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <span id="name" class="name">@phone.Name</span><span id="id" class="badge badge-secondary">@phone.Id</span>
+                                    </h5>
+                                    <div id="cost" class="card-title">Цена: @phone.Price</div>
+                                    <div class="card-text">Производитель: @phone.Producer</div>
+                                    <button id="buy" class="card-link btn-outline-success" onclick="add_in_session()">Купить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             }
-        }
+        </div>
     </content>
+
+    <footer>
+    </footer>
 </body>
 </html>
